@@ -5,7 +5,7 @@ output: html_document
 
 ```{r}
 library(tidyverse)
-
+library(readxl)
 ```
 
 let's import a dataset. 
@@ -51,7 +51,7 @@ litters_df =
 ```
 
 
-##import fas_pups 
+##import pups data 
 
 ```{r}
 pups_df = 
@@ -63,5 +63,14 @@ pups_df =
 
 pups_df = 
   janitor::clean_names(pups_df)
+```
+
+## what about excel files 
+
+csvs are great, but sometimes you get an excel file. 
+
+```{r}
+mlb_df =
+  read_excel("data/mlb11.xlsx")
 ```
 
