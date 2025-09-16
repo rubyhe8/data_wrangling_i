@@ -364,7 +364,8 @@ display: none;
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>library(readxl)</code></pre>
+<pre class="r"><code>library(readxl)
+library(haven)</code></pre>
 <p>let’s import a dataset.</p>
 <pre class="r"><code>litters_df =
   read_csv(&quot;data/FAS_litters.csv&quot;)</code></pre>
@@ -636,6 +637,24 @@ names(litters_df)</code></pre>
 <p>csvs are great, but sometimes you get an excel file.</p>
 <pre class="r"><code>mlb_df =
   read_excel(&quot;data/mlb11.xlsx&quot;)</code></pre>
+<p>Import LotR word counts.</p>
+<pre class="r"><code>fotr_df = 
+  read_excel(&quot;data/LotR_Words.xlsx&quot;, range = &quot;B3:D6&quot;)</code></pre>
+</div>
+<div id="sas" class="section level2">
+<h2>SAS!</h2>
+<p>Import the PULSE data</p>
+<pre class="r"><code>pulse_df = 
+  read_sas(&quot;data/public_pulse_data.sas7bdat&quot;)
+
+pulse_df = 
+  janitor::clean_names(pulse_df) </code></pre>
+</div>
+<div id="why-is-read.csv-not-good" class="section level2">
+<h2>Why is read.csv not good</h2>
+<p>read.csv is base R functions - no tidyverse functions</p>
+<pre class="r"><code>litters_df_base = 
+  read.csv(&quot;data/FAS_litters.csv&quot;)</code></pre>
 </div>
 
 
