@@ -1,5 +1,5 @@
 ---
-title: "data_manipulation"
+title: "Data Manipulation"
 author: "ruby"
 date: "2025-09-18"
 output: github_document
@@ -26,3 +26,58 @@ pups_df =
   janitor::clean_names(pups_df)
 ```
 
+## `select`
+
+`select` selects variables from my dataframe 
+
+```{r}
+select(litters_df, group, litter_number, gd0_weight)
+```
+
+select a range
+```{r}
+select(litters_df, group:gd_of_birth)
+```
+
+select by removal 
+```{r}
+select(litters_df, -group)
+select(litters_df, -(group:gd_of_birth))
+```
+
+select by prefix
+```{r}
+select(litters_df, group, starts_with("gd"))
+```
+
+rearrange by selecting -> however you write it is how select will present it to you
+
+```{r}
+select(litters_df, starts_with("gd"), group)
+select(litters_df, litter_number, everything())
+
+relocate(litters_df, litter_number)
+```
+
+relocate does the same thing as the select 
+
+rename by selecting 
+```{r}
+select(litters_df, GROUP = group, everything())
+rename(litters_df, GROUP = group)
+```
+
+what if i only select on variable 
+select gives you a dataframe, pull gives you a vector
+```{r}
+select(litters_df, group)
+
+pull(litters_df,group)
+```
+
+learning assessment: in the pups dataset, select the columns containing litter number, sex, and pd ears 
+```{r}
+select(pups_df, litter_number, sex, pd_ears)
+```
+
+## `filter`
