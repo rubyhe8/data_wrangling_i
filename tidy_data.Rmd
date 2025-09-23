@@ -27,6 +27,45 @@ pulse_df =
   ) |> 
   mutate(visit = replace(visit, visit == "bl", "00m")) |> 
   relocate(id, visit)
+```
 
+
+Another example
+
+```{r}
+litters_df = 
+  read_csv("data/FAS_litters.csv", na = c("NA", ".", "")) |> 
+  janitor::clean_names() |> 
+  pivot_longer(
+    cols = gd0_weight:gd18_weight, 
+    names_to = "gd_time",
+    values_to = "weight"
+  ) |> 
+  mutate(gd_time = case_match(
+    gd_time, 
+    "gd0_weight"~ 0,
+    "gd18_weight"~ 18 ))
+```
+
+## Pivot wider
+
+Let's make up an analysis result table. 
+
+```{r}
+analysis_df = 
+  tibble(group = c("treatment", "treatment", "control", "control"),
+         time = c("pre", "post", "pre", "post"),
+         mean = c(4, 10, 4.2, 5))
+```
+
+Pivot wider for human readability. 
+
+```{r}
+analysis_df |> 
+  pivot_wider(
+    names_from = time,
+    values_from = mean
+  ) |> 
+  knitr::kable()
 ```
 
