@@ -1,0 +1,32 @@
+---
+title: "Tidy Data"
+author: "ruby"
+date: "2025-09-23"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(haven)
+```
+
+This document will show how to tidy data. 
+
+## Pivot longer 
+
+```{r}
+pulse_df = 
+  read_sas("data/public_pulse_Data.sas7bdat") |> 
+  janitor::clean_names() |> 
+  pivot_longer(
+    cols = bdi_score_bl: bdi_score_12m,
+    names_to = "visit",
+    values_to = "bdi_score",
+    names_prefix = "bdi_score_"
+  ) |> 
+  mutate(visit = replace(visit, visit == "bl", "00m")) |> 
+  relocate(id, visit)
+
+```
+
